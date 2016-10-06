@@ -23,7 +23,7 @@ RUN \
   rm artifactory.zip
 
 # Add hook to install custom artifactory.war (i.e. Artifactory Pro) to replace the default OSS installation.
-ONBUILD ADD ./artifactory.war /tomcat/webapps/
+# ONBUILD ADD ./artifactory.war /tomcat/webapps/
 
 # Expose tomcat runtime options through the RUNTIME_OPTS environment variable.
 #   Example to set the JVM's max heap size to 256MB use the flag
