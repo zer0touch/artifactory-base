@@ -1,0 +1,10 @@
+image: registry.service.consul/ubuntu-build
+env:
+  - DOCKER_HOST=tcp://consul.service.consul:2375
+  - REGISTRY=registry.service.consul
+  - IMAGE_NAME=artifactory-base
+script:
+  - env
+  - cd $DRONE_BUILD_DIR
+  - docker -H tcp://`ip r g 8.8.8.8 | awk '{ gsub(/\n$/,""); printf("%s", $3); }'`:2375 build --no-cache=true -t $REGISTRY/$IMAGE_NAME:$DRONE_BUILD_NUMBER .
+  - docker -H tcp://`ip r g 8.8.8.8 | awk '{ gsub(/\n$/,""); printf("%s", $3); }'`:2375 push $REGISTRY/$IMAGE_NAME:$DRONE_BUILD_NUMBER
